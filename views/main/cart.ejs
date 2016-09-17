@@ -10,31 +10,142 @@
           </button>
           <%= message %>
         </div>
-      <% } %>
-      <% for(var i=0; i< foundCart.items.length; i++){ %>
-        <div class="list-group">
-          <span class="list-group-item">
-            <div class="row">
-              <div class="col-md-3">
-                <span><img src="<%= foundCart.items[i].item.image %>" alt="" class="product-image"></span>
-              </div>
-              <div class="col-md-6">
-                <p class="list-group-item-heading"><%= foundCart.items[i].item.name %></p>
-              </div>
-              <div class="col-md-3">
-                <p><%= foundCart.items[i].quantity %></p>
-                <p>$<%= foundCart.items[i].price %></p>
+        <% } %>
+        <% for(var i=0; i< foundCart.items.length; i++){ %>
+          <div class="list-group">
+            <span class="list-group-item">
+              <div class="row">
+                <div class="col-md-3">
+                  <span><img src="<%= foundCart.items[i].item.image %>" alt="" class="product-image"></span>
+                </div>
+                <div class="col-md-6">
+                  <p class="list-group-item-heading"><%= foundCart.items[i].item.name %></p>
+                </div>
+                <div class="col-md-3">
+                  <p><%= foundCart.items[i].quantity %></p>
+                  <p>$<%= foundCart.items[i].price %></p>
 
-                <form action="/remove" method="post">
-                  <input type="hidden" name="item" value="<%= foundCart.items[i]._id %>">
-                  <input type="hidden" name="price" value="<%= foundCart.items[i].price %>">
-                  <button type="submit" type="button">Remove</button>
-                </form>
+                  <form action="/remove" method="post">
+                    <input type="hidden" name="item" value="<%= foundCart.items[i]._id %>">
+                    <input type="hidden" name="price" value="<%= foundCart.items[i].price %>">
+                    <button type="submit" type="button">Remove</button>
+                  </form>
+                </div>
+              </div>
+            </span>
+          </div>
+          <% } %>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+          <div class="list-group">
+            <span class="list-group-item">
+              <h4>Total: $<span class="totalPrice"><%= foundCart.total %></span></h4>
+              <div class="form-group">
+                <input type="hidden" value="<%= foundCart.total %>">
+                <button class="btn btn-primary btn-lg" type="submit" data-toggle="modal" data-target="#myModal">Pay with Stripe</button>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Pay With Stripe</h4>
+              </div>
+              <div class="modal-body">
+
+
+                <div class="container">
+                  <div class="row">
+                    <!-- You can make it whatever width you want. I'm making it full width
+                    on <= small devices and 4/12 page width on >= medium devices -->
+                    <div class="col-xs-12 col-md-4">
+
+
+                      <!-- CREDIT CARD FORM STARTS HERE -->
+                      <div class="panel panel-default credit-card-box">
+                        <div class="panel-heading display-table" >
+                          <div class="row display-tr" >
+                            <h3 class="panel-title display-td" >Payment Details</h3>
+                            <div class="display-td" >
+                              <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel-body">
+                          <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                            <div class="row">
+                              <div class="col-xs-12">
+                                <div class="form-group">
+                                  <label for="cardNumber">CARD NUMBER</label>
+                                  <div class="input-group">
+                                    <input
+                                    type="tel"
+                                    class="form-control"
+                                    name="cardNumber"
+                                    placeholder="Valid Card Number"
+                                    autocomplete="cc-number"
+                                    required autofocus
+                                    />
+                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                  <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                  <input
+                                  type="tel"
+                                  class="form-control"
+                                  name="cardExpiry"
+                                  placeholder="MM / YY"
+                                  autocomplete="cc-exp"
+                                  required
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                  <label for="cardCVC">CV CODE</label>
+                                  <input
+                                  type="tel"
+                                  class="form-control"
+                                  name="cardCVC"
+                                  placeholder="CVC"
+                                  autocomplete="cc-csc"
+                                  required
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div class="row">
+                              <div class="col-xs-12">
+                                <button class="subscribe btn btn-success btn-lg btn-block" type="button">Pay</button>
+                              </div>
+                            </div>
+                            <div class="row" style="display:none;">
+                              <div class="col-xs-12">
+                                <p class="payment-errors"></p>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <!-- CREDIT CARD FORM ENDS HERE -->
+
+
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </span>
+          </div>
         </div>
-      <% } %>
+      </div>
     </div>
-  </div>
-</div>
