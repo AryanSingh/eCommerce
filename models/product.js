@@ -10,7 +10,7 @@ var ProductSchema = new Schema({
 });
 ProductSchema.plugin(mongoosastic,{
   hosts: [
-    'localhost:9200'
+    'https://aeb708c4056bfe81a6d8590a2467e00c.us-east-1.aws.found.io:9243'
   ]
 });
 module.exports = mongoose.model('Product', ProductSchema);
