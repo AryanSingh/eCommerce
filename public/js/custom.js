@@ -1,6 +1,6 @@
 $(function() {
 
-  Stripe.setPublishableKey('pk_test_arBOEUphjjQMwmzhu3uJHXTa');
+  Stripe.setPublishableKey('pk_test_s5MCQ9ddIg5tuYexEzKCyIxj');
 
   var opts = {
     lines: 13 // The number of lines to draw

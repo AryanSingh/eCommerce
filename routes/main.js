@@ -5,7 +5,7 @@ var Cart = require('../models/cart');
 
 var async = require('async');
 
-var stripe = require('stripe') ('sk_test_0HpD4Kgj332YejbQv3qY2aNd');
+var stripe = require('stripe') ('sk_test_RtVWGtHcykG3FyyNS1EGhbIq');
 
 function paginate(req, res, next) {
 
