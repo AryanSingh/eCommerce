@@ -5,7 +5,7 @@ var Cart = require('../models/cart');
 
 var async = require('async');
 
-var stripe = require('stripe') ('sk_test_RtVWGtHcykG3FyyNS1EGhbIq');
+var stripe = require('stripe') ('sk_test_0HpD4Kgj332YejbQv3qY2aNd');
 
 function paginate(req, res, next) {
 
@@ -61,6 +61,7 @@ router.get('/cart', function(req, res, next) {
     .populate('items.item')
     .exec(function(err, foundCart) {
       if (err) return next(err);
+
       res.render('main/cart', {
         foundCart: foundCart,
         message: req.flash('remove')
@@ -186,6 +187,7 @@ router.post('/payment', function(req, res, next) {
       function(cart, callback) {
         User.findOne({ _id: req.user._id }, function(err, user) {
           if (user) {
+            
             for (var i = 0; i < cart.items.length; i++) {
               user.history.push({
                 item: cart.items[i].item,

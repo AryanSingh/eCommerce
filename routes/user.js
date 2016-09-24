@@ -24,7 +24,7 @@ router.get('/profile', passportConf.isAuthenticated, function(req, res, next) {
     .populate('history.item')
     .exec(function(err, foundUser) {
       if (err) return next(err);
-
+      
       res.render('accounts/profile', { user: foundUser });
     });
 });
